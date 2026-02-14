@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
+// DEBUG MODE: Set to true for easy testing (only 2 pairs = 4 cards)
+const DEBUG_MODE = true;
+
 // 18 images
 const images = [
   "/game-photos/1.avif",
@@ -26,8 +29,10 @@ const images = [
   "/game-photos/18.avif",
 ];
 
-// Create 18 pairs of images (36 images in total)
-const imagePairs = images.flatMap((image) => [image, image]);
+// Create pairs: Debug mode = 2 pairs (4 cards), Normal = 18 pairs (36 cards)
+const imagePairs = DEBUG_MODE
+  ? images.slice(0, 2).flatMap((image) => [image, image])
+  : images.flatMap((image) => [image, image]);
 
 const shuffleArray = (array: string[]) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -37,7 +42,8 @@ const shuffleArray = (array: string[]) => {
   return array;
 };
 
-const heartLayout = [
+// Heart layout for full game (36 cards)
+const fullHeartLayout = [
   [null, null, 0, 1, null, 2, 3, null, null],
   [null, 4, 5, 6, 7, 8, 9, 10, null],
   [11, 12, 13, 14, 15, 16, 17, 18, 19],
@@ -46,6 +52,19 @@ const heartLayout = [
   [null, null, null, 32, 33, 34, null, null, null],
   [null, null, null, null, 35, null, null, null, null],
 ];
+
+// Simple layout for debug mode (4 cards)
+const debugLayout = [
+  [null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, 0, 1, null, null, null],
+  [null, null, null, null, 2, 3, null, null, null],
+  [null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null],
+];
+
+const heartLayout = DEBUG_MODE ? debugLayout : fullHeartLayout;
 
 type ValentinesProposalProps = {
   handleShowProposal: () => void;
@@ -64,6 +83,21 @@ export default function PhotoPairGame({
   useEffect(() => {
     setImages(shuffleArray([...imagePairs]));
     setMounted(true);
+  }, []);
+
+  // DEBUG: Press 'W' key to auto-win
+  useEffect(() => {
+    if (!DEBUG_MODE) return;
+
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === 'w') {
+        console.log('🎉 DEBUG: Auto-winning game!');
+        setMatched(Array.from({ length: imagePairs.length }, (_, i) => i));
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
   }, []);
 
   const handleClick = async (index: number) => {
@@ -98,6 +132,15 @@ export default function PhotoPairGame({
 
   return (
     <div className="grid grid-cols-9 gap-1 lg:gap-2 max-w-[95vw] mx-auto place-items-center" style={{ opacity: mounted ? 1 : 0.5 }}>
+      {/* DEBUG INFO */}
+      {DEBUG_MODE && mounted && (
+        <div className="fixed top-4 left-4 bg-black/80 text-white p-4 rounded-lg z-50 text-sm font-mono">
+          <div className="font-bold text-green-400 mb-2">🐛 DEBUG MODE</div>
+          <div>Cards: {imagePairs.length} ({imagePairs.length / 2} pairs)</div>
+          <div>Matched: {matched.length}/{imagePairs.length}</div>
+          <div className="mt-2 text-yellow-300">Press 'W' to auto-win</div>
+        </div>
+      )}
       {/* Image preload */}
       <div className="hidden">
         {images.map((image, i) => (
@@ -124,7 +167,7 @@ export default function PhotoPairGame({
             {/* Back of the card */}
             {!selected.includes(index) && !matched.includes(index) && (
               <motion.div
-                className="w-full h-full bg-gray-300 rounded-sm lg:rounded-md absolute z-10"
+                className="w-full h-full bg-gray-300 rounded-sm lg:rounded-md absolute z-10 flex items-center justify-center"
                 initial={{ rotateY: 0 }}
                 animate={{
                   rotateY:
@@ -134,7 +177,14 @@ export default function PhotoPairGame({
                 }}
                 transition={{ duration: 0.5 }}
                 style={{ backfaceVisibility: "hidden" }}
-              />
+              >
+                {/* DEBUG: Show image number on card back */}
+                {DEBUG_MODE && mounted && (
+                  <span className="text-xs text-gray-600 font-mono">
+                    {images[index]?.match(/\/(\d+)\.avif$/)?.[1]}
+                  </span>
+                )}
+              </motion.div>
             )}
 
             {/* Front of the card (image) */}
