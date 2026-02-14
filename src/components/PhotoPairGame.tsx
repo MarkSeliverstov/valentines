@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 // DEBUG MODE: Set to true for easy testing (only 2 pairs = 4 cards)
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 
 // 18 images
 const images = [
