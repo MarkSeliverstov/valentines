@@ -143,15 +143,15 @@ export default function PhotoPairGame({
     >
       {/* DEBUG INFO */}
       {DEBUG_MODE && mounted && (
-        <div className="fixed top-4 left-4 bg-black/80 text-white p-4 rounded-lg z-50 text-sm font-mono">
-          <div className="font-bold text-green-400 mb-2">🐛 DEBUG MODE</div>
+        <div className="fixed top-2 left-2 sm:top-4 sm:left-4 bg-black/80 text-white p-2 sm:p-4 rounded-lg z-50 text-xs sm:text-sm font-mono">
+          <div className="font-bold text-green-400 mb-1 sm:mb-2">🐛 DEBUG</div>
           <div>
             Cards: {imagePairs.length} ({imagePairs.length / 2} pairs)
           </div>
           <div>
             Matched: {matched.length}/{imagePairs.length}
           </div>
-          <div className="mt-2 text-yellow-300">Press 'W' to auto-win</div>
+          <div className="mt-1 sm:mt-2 text-yellow-300 hidden sm:block">Press 'W' to auto-win</div>
         </div>
       )}
       {/* Image preload */}

@@ -53,10 +53,10 @@ export default function OrientationGuard({
             />
           </svg>
         </motion.div>
-        <h2 className="text-3xl font-bold text-white mb-4">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 px-4 text-center">
           Поверни устройство
         </h2>
-        <p className="text-gray-400 text-lg max-w-xs">
+        <p className="text-gray-400 text-base sm:text-lg max-w-xs px-6 text-center">
           Чтобы играть правильно, переверни телефон в{" "}
           <b>горизонтальный режим</b>.
         </p>

@@ -130,25 +130,26 @@ export default function ValentinesProposal() {
             </div>
 
             <h2
-              className={`text-5xl font-semibold mb-8 ${playfairDisplay.className}`}
+              className={`text-2xl sm:text-3xl lg:text-5xl font-semibold mb-4 sm:mb-6 lg:mb-8 px-4 text-center ${playfairDisplay.className}`}
             >
               Будешь моей Валентинкой в следующем году?
             </h2>
             <Image
               src="/sad_hamster.png"
               alt="Sad Hamster"
-              width={200}
-              height={200}
+              width={150}
+              height={150}
+              className="sm:w-[200px] sm:h-[200px]"
             />
-            <div className="flex space-x-4 mt-10">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-10 px-4">
               <button
-                className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-2 text-base sm:text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                 onClick={handleYesClick}
               >
                 Да, буду! 🥰
               </button>
               <button
-                className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl hover:from-gray-600 hover:to-gray-700 transform hover:scale-95 transition-all duration-300 shadow-lg"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-2 text-base sm:text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl hover:from-gray-600 hover:to-gray-700 transform hover:scale-95 transition-all duration-300 shadow-lg"
                 style={
                   position
                     ? {
@@ -169,19 +170,20 @@ export default function ValentinesProposal() {
         {step === 3 && (
           <motion.div
             key="step-3"
-            className={`text-4xl font-semibold mb-4 flex flex-col justify-center items-center ${playfairDisplay.className}`}
+            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 flex flex-col justify-center items-center px-4 text-center ${playfairDisplay.className}`}
             transition={{ duration: 1 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             Спасибо, что согласилась, я люблю тебя! 💕
-            <p className="text-sm mt-4">За подробностями пиши мне!!! 💌</p>
+            <p className="text-xs sm:text-sm mt-4">За подробностями пиши мне!!! 💌</p>
             <Image
               src="/hamster_jumping.gif"
               alt="Hamster Feliz"
-              width={200}
-              height={200}
+              width={150}
+              height={150}
+              className="sm:w-[200px] sm:h-[200px] mt-2"
               unoptimized
             />
           </motion.div>
