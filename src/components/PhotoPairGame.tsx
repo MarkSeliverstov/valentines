@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 // DEBUG MODE: Set to true for easy testing (only 2 pairs = 4 cards)
-const DEBUG_MODE = true;
+const DEBUG_MODE = false;
 
 // 18 images
 const images = [
@@ -90,19 +90,25 @@ export default function PhotoPairGame({
     if (!DEBUG_MODE) return;
 
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === 'w') {
-        console.log('🎉 DEBUG: Auto-winning game!');
+      if (e.key.toLowerCase() === "w") {
+        console.log("🎉 DEBUG: Auto-winning game!");
         setMatched(Array.from({ length: imagePairs.length }, (_, i) => i));
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, []);
 
   const handleClick = async (index: number) => {
     // Prevent clicks until shuffled
-    if (!mounted || selected.length === 2 || matched.includes(index) || selected.includes(index)) return;
+    if (
+      !mounted ||
+      selected.length === 2 ||
+      matched.includes(index) ||
+      selected.includes(index)
+    )
+      return;
 
     if (selected.length === 1) {
       const firstIndex = selected[0];
@@ -131,13 +137,20 @@ export default function PhotoPairGame({
   }, [matched, handleShowProposal]);
 
   return (
-    <div className="grid grid-cols-9 gap-1 lg:gap-2 max-w-[95vw] mx-auto place-items-center" style={{ opacity: mounted ? 1 : 0.5 }}>
+    <div
+      className="grid grid-cols-9 gap-1 lg:gap-2 max-w-[95vw] mx-auto place-items-center"
+      style={{ opacity: mounted ? 1 : 0.5 }}
+    >
       {/* DEBUG INFO */}
       {DEBUG_MODE && mounted && (
         <div className="fixed top-4 left-4 bg-black/80 text-white p-4 rounded-lg z-50 text-sm font-mono">
           <div className="font-bold text-green-400 mb-2">🐛 DEBUG MODE</div>
-          <div>Cards: {imagePairs.length} ({imagePairs.length / 2} pairs)</div>
-          <div>Matched: {matched.length}/{imagePairs.length}</div>
+          <div>
+            Cards: {imagePairs.length} ({imagePairs.length / 2} pairs)
+          </div>
+          <div>
+            Matched: {matched.length}/{imagePairs.length}
+          </div>
           <div className="mt-2 text-yellow-300">Press 'W' to auto-win</div>
         </div>
       )}
