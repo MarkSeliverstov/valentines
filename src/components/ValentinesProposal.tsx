@@ -85,7 +85,7 @@ export default function ValentinesProposal() {
         {step === 0 && (
           <motion.h2
             key="step-0"
-            className={`text-4xl font-semibold mb-4 ${playfairDisplay.className}`}
+            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 px-4 text-center ${playfairDisplay.className}`}
             transition={{ duration: 1 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -97,7 +97,7 @@ export default function ValentinesProposal() {
         {step === 1 && (
           <motion.h2
             key="step-1"
-            className={`text-4xl font-semibold mb-4 ${playfairDisplay.className}`}
+            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 px-4 text-center ${playfairDisplay.className}`}
             transition={{ duration: 3 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
