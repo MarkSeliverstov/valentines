@@ -128,7 +128,7 @@ export default function PhotoPairGame({
 
   return (
     <div
-      className="grid grid-cols-7 gap-2 lg:gap-3 max-w-[90vw] mx-auto place-items-center"
+      className="grid grid-cols-7 gap-1 lg:gap-2 max-w-[90vw] mx-auto place-items-center"
       style={{ opacity: mounted ? 1 : 0.5 }}
     >
       {/* DEBUG INFO */}
