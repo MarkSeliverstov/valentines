@@ -91,21 +91,21 @@ export default function ValentinesProposal() {
       <AnimatePresence>
         {step === 2 && (
           <>
-            {/* Mobile: 3 columns x 4 rows = 12 images */}
+            {/* Mobile: 2 columns x 3 rows = 6 images (spread across collection) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1 }}
-              className="fixed inset-0 grid grid-cols-3 grid-rows-4 gap-0 z-0 lg:hidden"
+              className="fixed inset-0 grid grid-cols-2 grid-rows-3 gap-0 z-0 lg:hidden"
             >
-              {images.slice(0, 12).map((src, index) => (
+              {[0, 6, 12, 18, 24, 30].map((imageIndex, index) => (
                 <div key={index} className="relative w-full h-full">
                   <Image
-                    src={src}
-                    alt={`Memory ${index + 1}`}
+                    src={images[imageIndex]}
+                    alt={`Memory ${imageIndex + 1}`}
                     fill
-                    sizes="33vw"
+                    sizes="50vw"
                     className="object-cover"
                     loading="lazy"
                   />
@@ -218,7 +218,6 @@ export default function ValentinesProposal() {
             exit={{ opacity: 0 }}
           >
             Спасибо, что согласилась, я люблю тебя! 💕
-            <p className="text-xs sm:text-sm mt-4">За подробностями пиши мне!!! 💌</p>
             <Image
               src="/hamster_jumping.gif"
               alt="Hamster Feliz"

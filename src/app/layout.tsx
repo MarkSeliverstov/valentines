@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Сюрпризик",
   description:
-    "Открой, вдруг там что то важно?!",
+    "Открой, вдруг там что то важное?!",
 };
 
 export default function RootLayout({
