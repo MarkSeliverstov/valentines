@@ -56,6 +56,12 @@ export default function ValentinesProposal() {
     left: string;
   } | null>(null);
   const [showFireworks, setShowFireworks] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect mobile device to optimize performance
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const getRandomPosition = () => {
     const randomTop = Math.random() * 80;
@@ -80,7 +86,56 @@ export default function ValentinesProposal() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center h-full relative">
+      {/* Fullscreen Image Grid Background - Only visible on step 2 */}
+      <AnimatePresence>
+        {step === 2 && (
+          <>
+            {/* Mobile: 3 columns x 4 rows = 12 images */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="fixed inset-0 grid grid-cols-3 grid-rows-4 gap-0 z-0 lg:hidden"
+            >
+              {images.slice(0, 12).map((src, index) => (
+                <div key={index} className="relative w-full h-full">
+                  <Image
+                    src={src}
+                    alt={`Memory ${index + 1}`}
+                    fill
+                    sizes="33vw"
+                    className="object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </motion.div>
+            {/* Desktop: 6 columns x 6 rows = 36 images */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="fixed inset-0 grid grid-cols-6 grid-rows-6 gap-0 z-0 hidden lg:grid"
+            >
+              {images.slice(0, 36).map((src, index) => (
+                <div key={index} className="relative w-full h-full">
+                  <Image
+                    src={src}
+                    alt={`Memory ${index + 1}`}
+                    fill
+                    sizes="16vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence mode="wait">
         {step === 0 && (
           <motion.h2
@@ -113,35 +168,21 @@ export default function ValentinesProposal() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center justify-center relative z-10"
           >
-            {/* Image Grid Background */}
-            <div className="absolute inset-0 grid grid-cols-6 opacity-10">
-              {images.slice(0, 36).map((src, index) => (
-                <div key={index} className="relative h-full">
-                  <Image
-                    src={src}
-                    alt={`Memory ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <h2
-              className={`text-2xl sm:text-3xl lg:text-5xl font-semibold mb-4 sm:mb-6 lg:mb-8 px-4 text-center ${playfairDisplay.className}`}
-            >
-              Будешь моей Валентинкой в следующем году?
-            </h2>
-            <Image
-              src="/sad_hamster.png"
-              alt="Sad Hamster"
-              width={150}
-              height={150}
-              className="sm:w-[200px] sm:h-[200px]"
-            />
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-10 px-4">
+              <h2
+                className={`text-2xl sm:text-3xl lg:text-5xl font-semibold mb-4 sm:mb-6 lg:mb-8 px-4 text-center ${playfairDisplay.className}`}
+              >
+                Будешь моей Валентинкой в следующем году?
+              </h2>
+              <Image
+                src="/sad_hamster.png"
+                alt="Sad Hamster"
+                width={150}
+                height={150}
+                className="sm:w-[200px] sm:h-[200px]"
+              />
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-10 px-4">
               <button
                 className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-2 text-base sm:text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                 onClick={handleYesClick}
@@ -170,7 +211,7 @@ export default function ValentinesProposal() {
         {step === 3 && (
           <motion.div
             key="step-3"
-            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 flex flex-col justify-center items-center px-4 text-center ${playfairDisplay.className}`}
+            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 flex flex-col justify-center items-center px-4 text-center relative z-10 ${playfairDisplay.className}`}
             transition={{ duration: 1 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -191,10 +232,56 @@ export default function ValentinesProposal() {
       </AnimatePresence>
 
       {showFireworks && (
-        <div className="absolute w-full h-full">
+        <div className="absolute w-full h-full pointer-events-none z-0">
           <Fireworks
             options={{
               autoresize: true,
+              opacity: 0.5,
+              acceleration: 1.02,
+              friction: 0.95,
+              gravity: 1.5,
+              particles: isMobile ? 30 : 50,
+              traceLength: isMobile ? 2 : 3,
+              traceSpeed: 10,
+              explosion: isMobile ? 3 : 5,
+              intensity: isMobile ? 15 : 30,
+              flickering: 50,
+              lineStyle: 'round',
+              hue: {
+                min: 0,
+                max: 360
+              },
+              delay: {
+                min: isMobile ? 40 : 30,
+                max: isMobile ? 80 : 60
+              },
+              rocketsPoint: {
+                min: 50,
+                max: 50
+              },
+              lineWidth: {
+                explosion: {
+                  min: 1,
+                  max: isMobile ? 2 : 3
+                },
+                trace: {
+                  min: 1,
+                  max: 2
+                }
+              },
+              brightness: {
+                min: 50,
+                max: 80
+              },
+              decay: {
+                min: 0.015,
+                max: 0.03
+              },
+              mouse: {
+                click: false,
+                move: false,
+                max: 1
+              }
             }}
             style={{
               width: "100%",
