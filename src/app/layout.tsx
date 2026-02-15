@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Сюрпризик",
   description:
     "Открой, вдруг там что то важное?!",
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: '#000000',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    themeColor: '#000000',
-  },
 };
 
 export default function RootLayout({
