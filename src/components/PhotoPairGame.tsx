@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 // DEBUG MODE: Set to true for easy testing (only 2 pairs = 4 cards)
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 
 // 18 images
 const images = [
@@ -151,7 +151,9 @@ export default function PhotoPairGame({
           <div>
             Matched: {matched.length}/{imagePairs.length}
           </div>
-          <div className="mt-1 sm:mt-2 text-yellow-300 hidden sm:block">Press 'W' to auto-win</div>
+          <div className="mt-1 sm:mt-2 text-yellow-300 hidden sm:block">
+            Press 'W' to auto-win
+          </div>
         </div>
       )}
       {/* Image preload */}
