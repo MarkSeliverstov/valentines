@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 // DEBUG MODE: Set to true for easy testing (only 2 pairs = 4 cards)
 const DEBUG_MODE = false;
 
-// 18 images
+// 12 images for smaller game
 const images = [
   "/game-photos/1.avif",
   "/game-photos/2.avif",
@@ -21,15 +21,9 @@ const images = [
   "/game-photos/10.avif",
   "/game-photos/11.avif",
   "/game-photos/12.avif",
-  "/game-photos/13.avif",
-  "/game-photos/14.avif",
-  "/game-photos/15.avif",
-  "/game-photos/16.avif",
-  "/game-photos/17.avif",
-  "/game-photos/18.avif",
 ];
 
-// Create pairs: Debug mode = 2 pairs (4 cards), Normal = 18 pairs (36 cards)
+// Create pairs: Debug mode = 2 pairs (4 cards), Normal = 12 pairs (24 cards)
 const imagePairs = DEBUG_MODE
   ? images.slice(0, 2).flatMap((image) => [image, image])
   : images.flatMap((image) => [image, image]);
@@ -42,26 +36,22 @@ const shuffleArray = (array: string[]) => {
   return array;
 };
 
-// Heart layout for full game (36 cards)
+// Smaller heart layout for 24 cards (7 columns)
 const fullHeartLayout = [
-  [null, null, 0, 1, null, 2, 3, null, null],
-  [null, 4, 5, 6, 7, 8, 9, 10, null],
-  [11, 12, 13, 14, 15, 16, 17, 18, 19],
-  [null, 20, 21, 22, 23, 24, 25, 26, null],
-  [null, null, 27, 28, 29, 30, 31, null, null],
-  [null, null, null, 32, 33, 34, null, null, null],
-  [null, null, null, null, 35, null, null, null, null],
+  [null, 0, 1, null, 2, 3, null],
+  [4, 5, 6, 7, 8, 9, 10],
+  [11, 12, 13, 14, 15, 16, 17],
+  [null, 18, 19, 20, 21, 22, null],
+  [null, null, null, 23, null, null, null],
 ];
 
 // Simple layout for debug mode (4 cards)
 const debugLayout = [
-  [null, null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null, null],
-  [null, null, null, null, 0, 1, null, null, null],
-  [null, null, null, null, 2, 3, null, null, null],
-  [null, null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null],
+  [null, null, 0, 1, null, null, null],
+  [null, null, 2, 3, null, null, null],
+  [null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null],
 ];
 
 const heartLayout = DEBUG_MODE ? debugLayout : fullHeartLayout;
@@ -138,7 +128,7 @@ export default function PhotoPairGame({
 
   return (
     <div
-      className="grid grid-cols-9 gap-1 lg:gap-2 max-w-[95vw] mx-auto place-items-center"
+      className="grid grid-cols-7 gap-2 lg:gap-3 max-w-[90vw] mx-auto place-items-center"
       style={{ opacity: mounted ? 1 : 0.5 }}
     >
       {/* DEBUG INFO */}
@@ -174,7 +164,7 @@ export default function PhotoPairGame({
         index !== null ? (
           <motion.div
             key={i}
-            className="w-[11vh] h-[11vh] lg:w-20 lg:h-20 relative cursor-pointer"
+            className="w-[13vh] h-[13vh] lg:w-28 lg:h-28 relative cursor-pointer"
             whileHover={{ scale: 1.1 }}
             onClick={() => handleClick(index)}
             style={{ perspective: "1000px" }} // Add perspective for 3D effect
@@ -232,7 +222,7 @@ export default function PhotoPairGame({
             )}
           </motion.div>
         ) : (
-          <div key={i} className="w-[11vh] h-[11vh] lg:w-20 lg:h-20" />
+          <div key={i} className="w-[13vh] h-[13vh] lg:w-28 lg:h-28" />
         ),
       )}
     </div>

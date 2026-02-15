@@ -140,7 +140,7 @@ export default function ValentinesProposal() {
         {step === 0 && (
           <motion.h2
             key="step-0"
-            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 px-4 text-center ${playfairDisplay.className}`}
+            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 px-4 text-center text-white ${playfairDisplay.className}`}
             transition={{ duration: 1 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -152,7 +152,7 @@ export default function ValentinesProposal() {
         {step === 1 && (
           <motion.h2
             key="step-1"
-            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 px-4 text-center ${playfairDisplay.className}`}
+            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 px-4 text-center text-white ${playfairDisplay.className}`}
             transition={{ duration: 3 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -171,7 +171,7 @@ export default function ValentinesProposal() {
             className="flex flex-col items-center justify-center relative z-10"
           >
               <h2
-                className={`text-2xl sm:text-3xl lg:text-5xl font-semibold mb-4 sm:mb-6 lg:mb-8 px-4 text-center ${playfairDisplay.className}`}
+                className={`text-2xl sm:text-3xl lg:text-5xl font-semibold mb-4 sm:mb-6 lg:mb-8 px-4 text-center text-white ${playfairDisplay.className}`}
               >
                 Будешь моей Валентинкой в следующем году?
               </h2>
@@ -211,7 +211,7 @@ export default function ValentinesProposal() {
         {step === 3 && (
           <motion.div
             key="step-3"
-            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 flex flex-col justify-center items-center px-4 text-center relative z-10 ${playfairDisplay.className}`}
+            className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 flex flex-col justify-center items-center px-4 text-center text-white relative z-10 ${playfairDisplay.className}`}
             transition={{ duration: 1 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
