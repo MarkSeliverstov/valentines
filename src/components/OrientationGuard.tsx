@@ -57,7 +57,7 @@ export default function OrientationGuard({
           Поверни устройство
         </h2>
         <p className="text-gray-400 text-base sm:text-lg max-w-xs px-6 text-center">
-          Чтобы играть правильно, переверни телефон в{" "}
+          Чтобы начать, переверни телефон в{" "}
           <b>горизонтальный режим</b>.
         </p>
       </div>
